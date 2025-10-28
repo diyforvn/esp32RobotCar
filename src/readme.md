@@ -1,5 +1,4 @@
-Quy trình tuning từng bước (thực tế ~10–20 phút)
-
+Quy trình tuning từng bước 
 
 Quan sát:
 
@@ -37,9 +36,9 @@ Nếu thấy I tích tụ lớn → giảm Ki hoặc giảm INTEGRAL_LIMIT.
 
 Nếu robot quay quá chậm tìm line → tăng MAX_ERR trong Task_LineReader (giá trị giả lập) từ 2 → 3.
 
-Dùng Serial.printf debug để quan sát ERR/CORR/I/D như code trên — cực kì hữu ích.
+Dùng Serial.printf debug để quan sát ERR/CORR/I/D như code trên
 
-🔁 Quick adjustments (nếu bạn chạy thử ngay)
+
 
 Robot quay chậm, không vào tâm → tăng Kp +10% (ví dụ 30 → 33).
 
