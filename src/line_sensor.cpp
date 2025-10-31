@@ -47,7 +47,7 @@ void Task_LineReader(void *pv) {
     if (raw > 500.0f) { // mất line
       lostCount++;
       float fake = (lastError > 0.0f) ? 1.0f : -1.0f;
-      fake *= min(2.5f, 0.6f * lostCount); // như bạn muốn
+      fake *= min(2.5f, 0.6f * lostCount); 
       usedErr = fake;
     } else {
       lostCount = 0;
@@ -55,7 +55,7 @@ void Task_LineReader(void *pv) {
       usedErr = raw;
     }
 
-    // smoothing (exp. moving average)
+    // smoothing 
     smoothErr = ERR_SMOOTH_ALPHA * smoothErr + (1.0f - ERR_SMOOTH_ALPHA) * usedErr;
 
     extern float g_lineError;
@@ -64,3 +64,4 @@ void Task_LineReader(void *pv) {
     vTaskDelay(pdMS_TO_TICKS(15)); // ~66 Hz
   }
 }
+
