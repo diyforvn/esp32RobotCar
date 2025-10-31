@@ -1,2 +1,7 @@
 # esp32RobotCar
-Esp32 + Car + Line Sensor + Ultrasonic + Servo
+Esp32 + Car Robot + Line Sensor + Ultrasonic + Servo + PID control + PS4 control + Bluetooth LE
+
+- Using Esp32 control Robot Car with PID control
+- Support Line Sensor Mode, Ultrasonic Mode + Servo
+- Manual control with Ps4 Gamepad
+- Can connect BLE control with Phone app
