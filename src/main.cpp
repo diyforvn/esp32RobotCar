@@ -27,7 +27,7 @@ static float integralTerm = 0;
 static float lastError = 0;
 static unsigned long lastPidTime = 0;
 
-#define BTN_PIN 0   // chân nút (có thể là GPIO0 hoặc 12 tùy board)
+#define BTN_PIN 0   // chân nút 
 #define LED_STATUS 2
 #define HOLD_TIME 3000  // giữ 3 giây
 
@@ -53,35 +53,7 @@ TaskHandle_t hTaskPID;
 // Global line error used by PID task
 float g_lineError = 999.0;
 
-/*void Task_PID(void *pv) {
-  (void)pv;
-  for (;;) {
-    if (!config.autoMode) { vTaskDelay(pdMS_TO_TICKS(50)); continue; }
-    float err = g_lineError;
-    unsigned long now = millis();
-    float dt = (lastPidTime==0) ? 0.02 : (now - lastPidTime)/1000.0;
-    lastPidTime = now;
-    int speed = config.baseSpeed;
-    speed = 200;
-    if (err > 500) {
-      driveMotors(speed, -speed); // quay tròn tại chỗ tìm line
-      continue;
-    } else {
-      integralTerm += err*dt;
-      //integralTerm = constrain(integralTerm, -1000, 1000); // Giới hạn integralTerm tránh trà
-      float derivative = (dt>0)?(err-lastError)/dt:0;
-      lastError = err;
-      float corr = config.Kp*err + config.Ki*integralTerm + config.Kd*derivative;
-      int left = speed + (int)corr;
-      int right = speed - (int)corr;
-      left = constrain(left, -config.maxSpeed, config.maxSpeed);
-      right = constrain(right, -config.maxSpeed, config.maxSpeed);
-      Serial.printf("Err: %.2f Corr: %.2f L: %d R: %d\n", err, corr, left, right);
-      driveMotors(-left, -right);
-    }
-    vTaskDelay(pdMS_TO_TICKS(30));
-  }
-}*/
+
 
 void Task_PID(void *pv) {
   (void)pv;
@@ -113,11 +85,7 @@ void Task_PID(void *pv) {
     lastDerivative = derivative;
     lastErrorLocal = err;
 
-    //float corr = config.Kp * err + config.Ki * integralTerm + config.Kd * derivative;
-
-    // Dynamic base speed: giảm tốc khi sai số lớn
-    // --- THAY THẾ CHO KHỐI LOGIC CŨ ---
-
+  
       float absErr = fabs(err);
       float speedScale = 1.0f;
       float correction_multiplier = 1.0f;
@@ -135,12 +103,10 @@ void Task_PID(void *pv) {
 
       int dynamicBase = config.baseSpeed * speedScale;
       dynamicBase = constrain(dynamicBase, 180, config.maxSpeed);
-
-      // Áp dụng hệ số tăng cường cho corr
+     
       float corr = config.Kp * err + config.Ki * integralTerm + config.Kd * derivative;
       corr *= correction_multiplier;
 
-      // --- KẾT THÚC PHẦN THAY THẾ ---   
 
     const float MAX_CORR = config.maxSpeed;
     corr = constrain(corr, -MAX_CORR, MAX_CORR);
@@ -261,7 +227,6 @@ void setup() {
   #ifndef testMode
     if (config.gamePad) initPS4(); 
     else initBLE();
-     // 🔹 Thay vì initBLE()
   #else
     Serial.println("=== Motor Test Mode ===");
     Serial.println("Cú pháp: M<id> <L/R/S> <speed>");
@@ -269,8 +234,6 @@ void setup() {
     Serial.println("    M3 L 120  → Motor 3 quay trái tốc độ 120");
     Serial.println("    M2 S      → Motor 2 dừng");
   #endif
-
- 
   
    createAllTasks(); // tạo tất cả task nền
 
@@ -294,8 +257,7 @@ void loop() {
       pressStart = millis();
       btnPressed = true;
     } else if (millis() - pressStart > HOLD_TIME && !wifiMode) {
-      Serial.println("\n[MODE SWITCH] → WiFi Config mode");
-      
+      Serial.println("\n[MODE SWITCH] → WiFi Config mode");      
 
       if (config.gamePad)
       {
@@ -329,3 +291,4 @@ void loop() {
 
   delay(5);
 }
+
