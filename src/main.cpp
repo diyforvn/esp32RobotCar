@@ -47,10 +47,9 @@ const float MAX_ERR = 2.0;
 static int lostCount = 0;
 
 bool ledState = false;
-// FreeRTOS task handles
+
 TaskHandle_t hTaskPID;
 
-// Global line error used by PID task
 float g_lineError = 999.0;
 
 
@@ -291,4 +290,5 @@ void loop() {
 
   delay(5);
 }
+
 
