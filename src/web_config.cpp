@@ -14,8 +14,7 @@ void webTask(void *param) {
   }
 }
 
-// ====== Trang cấu hình chính ======
-// ====== Trang cấu hình chính ======
+
 void handleRoot() {
   String html = R"rawliteral(
   <!DOCTYPE html>
@@ -270,8 +269,7 @@ void handleRoot() {
   server.send(200, "text/html", html);
 }
 
-// ====== Lưu cấu hình ======
-// ====== Lưu cấu hình ======
+
 void handleSave() {
   if (server.hasArg("Kp")) config.Kp = server.arg("Kp").toFloat();
   if (server.hasArg("Ki")) config.Ki = server.arg("Ki").toFloat();
@@ -304,9 +302,9 @@ void handleSave() {
   config.gamePad  = server.hasArg("gamePad");
   config.sensorMode  = server.hasArg("sensorMode");
 
-  saveConfig(); // Giả định hàm này lưu config vào EEPROM/Flash
+  saveConfig(); 
 
-  // ✅ Gửi thông báo ra trình duyệt
+ 
   String html = R"rawliteral(
   <!DOCTYPE html>
   <html>
@@ -392,7 +390,8 @@ void initWebConfig() {
   Serial.println("WebConfig server started!");
 }
 
-// ====== Gọi trong loop() ====== có task rồi không cần cái này trong loop
+
 void handleWebLoop() {
   server.handleClient();
 }
+
