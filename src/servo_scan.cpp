@@ -25,7 +25,7 @@ void initServoScan() {
     xTaskCreatePinnedToCore(Task_ServoScan, "ServoScan", 8192, NULL, 2, &hTaskServo, 1); 
 }
 
- // --- 1. ĐỊNH NGHĨA STRUCT ĐỂ TRẢ VỀ KẾT QUẢ QUÉT ---
+
 struct ScanResult {
     int angle;    // Góc tốt nhất tìm được
     int distance; // Khoảng cách xa nhất tại góc đó
@@ -231,4 +231,5 @@ void Task_ServoScan(void *pv)
         vTaskDelay(pdMS_TO_TICKS(20)); // non-blocking loop
     }
 }
+
 
