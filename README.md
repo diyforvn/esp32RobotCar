@@ -6,4 +6,5 @@ Esp32 + Car Robot + Line Sensor + Ultrasonic + Servo + PID control + PS4 control
 - Manual control with Ps4 Gamepad (Use the SixaxisPairTool software to write the ESP32's MAC address to the PS4.)
 - Can connect BLE control with Phone app
 - It is possible to configure PID parameters, ultrasonic settings, and control mode via the web server.
+- https://youtu.be/qG7FTTr5Ln8
 
